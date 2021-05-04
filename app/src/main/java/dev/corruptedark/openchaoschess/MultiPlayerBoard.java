@@ -20,6 +20,7 @@
 package dev.corruptedark.openchaoschess;
 
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
@@ -57,6 +58,8 @@ public class MultiPlayerBoard extends AppCompatActivity {
     public final int YOU = -1;
     public final int OPPONENT = 1;
     public final int NONE = 0;
+
+    private final double RATIO_THRESHOLD = 0.2;
 
     public final String NEW_GAME = "New Game?";
     public final String YES = "Yes";
@@ -149,6 +152,13 @@ public class MultiPlayerBoard extends AppCompatActivity {
         selected.setPiece(Piece.NONE);
         boardSize = 8;
 
+        Resources resources = context.getResources();
+        int navBarHeight = 0;
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            navBarHeight = resources.getDimensionPixelSize(resourceId);
+        }
+
         Display display;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             display = getDisplay();
@@ -158,10 +168,17 @@ public class MultiPlayerBoard extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
+        int height = (int)(0.70 * size.y) - navBarHeight;
 
-        squareSize = (width - convertDpToPx(30)) / 8;
-        xPosition = convertDpToPx(15);
-        yPosition = convertDpToPx(160);
+        if (Math.abs(((double) width)/size.y - 1.0) <= RATIO_THRESHOLD || width > size.y) { // ratio not long
+            squareSize = height / 8;
+            xPosition = (width - height) / 2;
+        }
+        else {
+            squareSize = (width - convertDpToPx(30)) / 8;
+            xPosition = convertDpToPx(15);
+        }
+        yPosition = size.y / 2 - 4 * squareSize;
 
         mover = new Mover(this);
         multiGame = MultiGame.getInstance();
@@ -489,6 +506,7 @@ public class MultiPlayerBoard extends AppCompatActivity {
         gameOverLabel.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
         thatSucksLabel.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
         plusOneLabel.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
+        plusOneLabel.setVisibility(View.GONE);
 
         newGameAlertFragment = new NewGameAlertFragment(MultiPlayerBoard.this, TAG, isHost);
 

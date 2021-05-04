@@ -20,14 +20,13 @@
 package dev.corruptedark.openchaoschess;
 
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.Color;
 
 
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
@@ -61,12 +60,13 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.RunnableFuture;
 
-
 public class SinglePlayerBoard extends AppCompatActivity {
 
     public final int YOU = -1;
     public final int OPPONENT = 1;
     public final int NONE = 0;
+
+    private final double RATIO_THRESHOLD = 0.2;
 
     public final int SLEEP_DURATION = 1000;
 
@@ -99,9 +99,11 @@ public class SinglePlayerBoard extends AppCompatActivity {
     private boolean bloodThirstQueued = false;
 
     private static volatile boolean aggressiveComputer;
+    private static volatile boolean smartComputer;
 
     TextView wonLabel, lostLabel, tieLabel, cantMoveThatLabel, notYourTurnLabel, gameOverLabel, thatSucksLabel, noiceLabel, playerPointLabel, computerPointLabel, plusOneLabel;
 
+    Random rand = new Random();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +145,13 @@ public class SinglePlayerBoard extends AppCompatActivity {
         selected.setPiece(Piece.NONE);
         boardSize = 8;
 
+        Resources resources = context.getResources();
+        int navBarHeight = 0;
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            navBarHeight = resources.getDimensionPixelSize(resourceId);
+        }
+
         Display display;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             display = getDisplay();
@@ -152,10 +161,18 @@ public class SinglePlayerBoard extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
         int width = size.x;
+        int height = (int)(0.70 * size.y) - navBarHeight;
 
-        squareSize = (width - convertDpToPx(30)) / 8;
-        xPosition = convertDpToPx(15);
-        yPosition = convertDpToPx(160);
+        if (Math.abs(((double) width)/size.y - 1.0) <= RATIO_THRESHOLD || width > size.y) { // ratio not long
+            squareSize = height / 8;
+            xPosition = (width - height) / 2;
+        }
+        else {
+            squareSize = (width - convertDpToPx(30)) / 8;
+            xPosition = convertDpToPx(15);
+        }
+        yPosition = size.y / 2 - 4 * squareSize;
+
 
         mover = new Mover(this);
         singleGame = SingleGame.getInstance();
@@ -166,6 +183,7 @@ public class SinglePlayerBoard extends AppCompatActivity {
             createSquares(boardSize);
         } else {
             aggressiveComputer = GameplaySettingsManager.getInstance(this).getAggressiveComputers();
+            smartComputer = GameplaySettingsManager.getInstance(this).getSmartComputer();
             startNewGame(singleGame.isKnightsOnly());
         }
 
@@ -430,6 +448,7 @@ public class SinglePlayerBoard extends AppCompatActivity {
         }
 
         aggressiveComputer = GameplaySettingsManager.getInstance(this).getAggressiveComputers();
+        smartComputer = GameplaySettingsManager.getInstance(this).getSmartComputer();
 
         selected = defaultSquare;
         while (moveThread != null && moveThread.isAlive()) {
@@ -890,37 +909,68 @@ public class SinglePlayerBoard extends AppCompatActivity {
             }
         });
 
+        // Generate pieces list
         List<Square> computerPieces = new ArrayList<>();
-        Square picked;
-        Random rand = new Random();
-
+        List<Square> aggressivePieces = new ArrayList<>();
         for (int i = 0; i < boardSize; i++)
             for (int j = 0; j < boardSize; j++)
                 if (board[i][j].getTeam() == OPPONENT)
                     computerPieces.add(board[i][j]);
 
-        if (aggressiveComputer) {
-            List<Square> aggressivePieces = new ArrayList<>();
+        int computerPiecesSize = computerPieces.size();
+        for (int i = computerPiecesSize - 1; i >= 0; i--) {
+            if (!mover.canPieceMove(board, computerPieces.get(i), singleGame)) {
+                computerPieces.remove(i);
+            }
+        }
 
+        // Generate aggressive pieces list
+        if (aggressiveComputer || smartComputer) {
             for (Square piece : computerPieces)
-                if (mover.pieceHasEnemies(board, piece))
+                //if (PieceCost.getAttackCost(mover, board, piece) != 0)
+                if(mover.pieceHasEnemies(board, piece))
                     aggressivePieces.add(piece);
-
-            if (!aggressivePieces.isEmpty())
-                computerPieces = aggressivePieces;
         }
 
         if (computerPieces.size() > 0) {
+
+            Square picked;
+            Random rand = new Random();
+
             int computerScore = singleGame.getComputerPoints();
 
-            picked = computerPieces.get(rand.nextInt(computerPieces.size()));
+            if(smartComputer) {
+                List<Square> improvedAIPieces = new ArrayList<>();
+                List<Integer> priority = new ArrayList<>();
+                int maxPriority = -30;
+                for (Square square : computerPieces) {
+                    priority.add(   (mover.pieceInDanger(board, square) ? PieceCost.getPieceCost(square) : 0) +
+                                    (PieceCost.getAttackCost(mover, board, square)) -
+                                    (PieceCost.getDangerCostOfMove(mover, board, square, bloodThirsty)) +
+                                    (aggressivePieces.contains(square) ? 1 : 0));
+                }
 
-            while (!mover.movePiece(board, board[picked.getI()][picked.getJ()], singleGame, bloodThirsty)) {
-                computerPieces.remove(picked);
-                if (computerPieces.size() == 0)
-                    break;
+                for (int pr : priority) {
+                    if(pr > maxPriority)
+                        maxPriority = pr;
+                }
+
+                for (int i = 0; i < computerPieces.size(); i++) {
+                    if(priority.get(i) == maxPriority)
+                        improvedAIPieces.add(computerPieces.get(i));
+                }
+
+                picked = improvedAIPieces.get(rand.nextInt(improvedAIPieces.size()));
+            } else if(aggressiveComputer) {
+                if (aggressivePieces.isEmpty())
+                    picked = computerPieces.get(rand.nextInt(computerPieces.size()));
+                else
+                    picked = aggressivePieces.get(rand.nextInt(aggressivePieces.size()));
+            } else {
                 picked = computerPieces.get(rand.nextInt(computerPieces.size()));
             }
+
+            mover.movePiece(board, board[picked.getI()][picked.getJ()], singleGame, bloodThirsty);
 
             if (selected.getTeam() == OPPONENT) {
                 runOnUiThread(new Runnable() {
@@ -1059,7 +1109,7 @@ public class SinglePlayerBoard extends AppCompatActivity {
                 board[i][7].setPiece(Piece.KNIGHT);
             }
 
-        } else {
+        } else  {
             // Set Teams
             for (int i = 0; i < size; i++) {
                 board[i][0].setTeam(OPPONENT);
@@ -1073,46 +1123,88 @@ public class SinglePlayerBoard extends AppCompatActivity {
                 board[i][6].setPiece(Piece.PAWN);
 
             for (int i = 0; i < size; i++)
-                board[i][1].setPiece(Piece.PAWN);
+                if(GameplaySettingsManager.getInstance(this).getHandicapQueensAttackEnabled())
+                    board[i][1].setPiece(Piece.QUEEN);
+                else
+                    board[i][1].setPiece(Piece.PAWN);
+
+            // Default positions
+            int rook1 = 0;
+            int rook2 = 7;
+            int knight1 = 1;
+            int knight2 = 6;
+            int bishop1 = 2;
+            int bishop2 = 5;
+            int queen = 3;
+            int king = 4;
+
+            // Generate Chess960
+            if(GameplaySettingsManager.getInstance(this).getChess960()) {
+                List<Integer> freeSquares = new ArrayList<Integer>();
+                for (int i = 0; i < 8; i++)
+                    freeSquares.add(i);
+                rook1 = rand.nextInt(6);
+                rook2 = rand.nextInt(6 - rook1) + rook1 + 2;
+                freeSquares.remove((Integer) rook1);
+                freeSquares.remove((Integer) rook2);
+
+                king = rook1 + 1 + rand.nextInt(rook2 - rook1 - 1);
+                freeSquares.remove((Integer) king);
+
+                bishop1 = (int) freeSquares.get(rand.nextInt(5));
+                freeSquares.remove((Integer) bishop1);
+                List<Integer> freeSquares4bishop2 = new ArrayList<Integer>();
+                for(int i = 0; i < 4; i++)
+                    if(freeSquares.get(i) % 2 != bishop1 % 2)
+                        freeSquares4bishop2.add(freeSquares.get(i));
+                bishop2 = (int) freeSquares4bishop2.get(rand.nextInt(freeSquares4bishop2.size()));
+                freeSquares.remove((Integer) bishop2);
+
+                knight1 = (int) freeSquares.get(rand.nextInt(3));
+                freeSquares.remove((Integer) knight1);
+                knight2 = (int) freeSquares.get(rand.nextInt(2));
+                freeSquares.remove((Integer) knight2);
+
+                queen = (int) freeSquares.get(0);
+            }
 
             // Set Rooks
-            board[0][0].setPiece(Piece.ROOK);
-            board[7][0].setPiece(Piece.ROOK);
-            if (GameplaySettingsManager.getInstance(this).getHandicapEnabled()) {
-                board[0][7].setPiece(Piece.PAWN);
-                board[7][7].setPiece(Piece.PAWN);
+            board[rook1][0].setPiece(Piece.ROOK);
+            board[rook2][0].setPiece(Piece.ROOK);
+            if (GameplaySettingsManager.getInstance(this).getHandicapOnlyBishopsKnightsEnabled()) {
+                board[rook1][7].setPiece(Piece.PAWN);
+                board[rook2][7].setPiece(Piece.PAWN);
 
+            } else {
+                board[rook1][7].setPiece(Piece.ROOK);
+                board[rook2][7].setPiece(Piece.ROOK);
             }
-            else {
-                board[0][7].setPiece(Piece.ROOK);
-                board[7][7].setPiece(Piece.ROOK);
-            }
-
-            // Set Knights
-            board[1][0].setPiece(Piece.KNIGHT);
-            board[6][0].setPiece(Piece.KNIGHT);
-            board[1][7].setPiece(Piece.KNIGHT);
-            board[6][7].setPiece(Piece.KNIGHT);
-
-            // Set Bishops
-            board[2][0].setPiece(Piece.BISHOP);
-            board[5][0].setPiece(Piece.BISHOP);
-            board[2][7].setPiece(Piece.BISHOP);
-            board[5][7].setPiece(Piece.BISHOP);
 
             // Set Kings
-            board[4][0].setPiece(Piece.KING);
-            board[4][7].setPiece(Piece.KING);
+            board[king][0].setPiece(Piece.KING);
+            board[king][7].setPiece(Piece.KING);
+
+
+            // Set Bishops
+            board[bishop1][0].setPiece(Piece.BISHOP);
+            board[bishop2][0].setPiece(Piece.BISHOP);
+            board[bishop1][7].setPiece(Piece.BISHOP);
+            board[bishop2][7].setPiece(Piece.BISHOP);
+
+            // Set Knights
+            board[knight1][0].setPiece(Piece.KNIGHT);
+            board[knight2][0].setPiece(Piece.KNIGHT);
+            board[knight1][7].setPiece(Piece.KNIGHT);
+            board[knight2][7].setPiece(Piece.KNIGHT);
 
             // Set Queens
-            board[3][0].setPiece(Piece.QUEEN);
+            board[queen][0].setPiece(Piece.QUEEN);
+            if (GameplaySettingsManager.getInstance(this).getHandicapOnlyBishopsKnightsEnabled()) {
+                board[queen][7].setPiece(Piece.PAWN);
+            } else {
+                board[queen][7].setPiece(Piece.QUEEN);
+            }
 
-            if (GameplaySettingsManager.getInstance(this).getHandicapEnabled()) {
-                board[3][7].setPiece(Piece.PAWN);
-            }
-            else {
-                board[3][7].setPiece(Piece.QUEEN);
-            }
 
         }
 
