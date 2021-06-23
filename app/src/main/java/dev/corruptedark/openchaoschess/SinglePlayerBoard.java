@@ -25,6 +25,7 @@ import android.graphics.Color;
 
 
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -79,6 +80,7 @@ public class SinglePlayerBoard extends AppCompatActivity {
     ViewGroup boardMain;
     SinglePlayerBoard context;
     MoveThread moveThread;
+    Thread computerStartThread;
     RelativeLayout boardLayout;
     private Square animatedSquare;
 
@@ -117,6 +119,8 @@ public class SinglePlayerBoard extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        mover = new Mover(this);
+        singleGame = SingleGame.getInstance();
 
         boardMain = (ViewGroup) findViewById(R.id.board_layout);
         boardLayout = (RelativeLayout) findViewById(R.id.board_layout);
@@ -173,20 +177,6 @@ public class SinglePlayerBoard extends AppCompatActivity {
         }
         yPosition = size.y / 2 - 4 * squareSize;
 
-
-        mover = new Mover(this);
-        singleGame = SingleGame.getInstance();
-
-        squaresAdded = false;
-        if (singleGame.hasBoard()) {
-            board = singleGame.restoreBoard();
-            createSquares(boardSize);
-        } else {
-            aggressiveComputer = GameplaySettingsManager.getInstance(this).getAggressiveComputers();
-            smartComputer = GameplaySettingsManager.getInstance(this).getSmartComputer();
-            startNewGame(singleGame.isKnightsOnly());
-        }
-
         animatedSquare = new Square(this, pieceColor);
         animatedSquare.setPiece(Piece.NONE);
         animatedSquare.setVisibility(View.GONE);
@@ -202,6 +192,16 @@ public class SinglePlayerBoard extends AppCompatActivity {
         playerPointLabel.setText(getResources().getText(R.string.player_points).toString() + " " + singleGame.getPlayerPoints());
         computerPointLabel.setText(getResources().getText(R.string.computer_points).toString() + " " + singleGame.getComputerPoints());
 
+        squaresAdded = false;
+        if (singleGame.hasBoard()) {
+            board = singleGame.restoreBoard();
+            createSquares(boardSize);
+        } else {
+            aggressiveComputer = GameplaySettingsManager.getInstance(this).getAggressiveComputers();
+            smartComputer = GameplaySettingsManager.getInstance(this).getSmartComputer();
+            startNewGame(singleGame.isKnightsOnly());
+        }
+
         wonLabel.bringToFront();
         lostLabel.bringToFront();
         tieLabel.bringToFront();
@@ -212,7 +212,6 @@ public class SinglePlayerBoard extends AppCompatActivity {
         animatedSquare.bringToFront();
         plusOneLabel.bringToFront();
         boardMain.invalidate();
-
     }
 
     @Override
@@ -325,6 +324,8 @@ public class SinglePlayerBoard extends AppCompatActivity {
         toolbar.setTitle(R.string.solo);
         toolbar.setBackgroundColor(colorManager.getColorFromFile(ColorManager.SECONDARY_COLOR));
         toolbar.setTitleTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
+        toolbar.getNavigationIcon().setColorFilter(colorManager.getColorFromFile(ColorManager.TEXT_COLOR), PorterDuff.Mode.MULTIPLY);
+        toolbar.getOverflowIcon().setColorFilter(colorManager.getColorFromFile(ColorManager.TEXT_COLOR), PorterDuff.Mode.MULTIPLY);
         wonLabel.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
         lostLabel.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
         tieLabel.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
@@ -398,7 +399,7 @@ public class SinglePlayerBoard extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (moveThread == null || !moveThread.isAlive()) {
+        if ((moveThread == null || !moveThread.isAlive()) && (computerStartThread == null || !computerStartThread.isAlive())) {
             switch (item.getItemId()) {
                 case R.id.new_game:
                     newGameButton_Click();
@@ -433,33 +434,37 @@ public class SinglePlayerBoard extends AppCompatActivity {
     }
 
     private void newGameButton_Click() {
-        tieLabel.setVisibility(View.INVISIBLE);
-        wonLabel.setVisibility(View.INVISIBLE);
-        lostLabel.setVisibility(View.INVISIBLE);
-        cantMoveThatLabel.setVisibility(View.INVISIBLE);
-        notYourTurnLabel.setVisibility(View.INVISIBLE);
-        gameOverLabel.setVisibility(View.INVISIBLE);
-        thatSucksLabel.setVisibility(View.INVISIBLE);
-        noiceLabel.setVisibility(View.INVISIBLE);
-
-        if (bloodThirstQueued) {
-            bloodThirsty = !bloodThirsty;
-            bloodThirstQueued = false;
+        if (computerStartThread != null && computerStartThread.isAlive()) {
+            Toast.makeText(this, R.string.wait_for_move, Toast.LENGTH_SHORT).show();
         }
+        else {
+            tieLabel.setVisibility(View.INVISIBLE);
+            wonLabel.setVisibility(View.INVISIBLE);
+            lostLabel.setVisibility(View.INVISIBLE);
+            cantMoveThatLabel.setVisibility(View.INVISIBLE);
+            notYourTurnLabel.setVisibility(View.INVISIBLE);
+            gameOverLabel.setVisibility(View.INVISIBLE);
+            thatSucksLabel.setVisibility(View.INVISIBLE);
+            noiceLabel.setVisibility(View.INVISIBLE);
 
-        aggressiveComputer = GameplaySettingsManager.getInstance(this).getAggressiveComputers();
-        smartComputer = GameplaySettingsManager.getInstance(this).getSmartComputer();
+            if (bloodThirstQueued) {
+                bloodThirsty = !bloodThirsty;
+                bloodThirstQueued = false;
+            }
 
-        selected = defaultSquare;
-        while (moveThread != null && moveThread.isAlive()) {
-            moveThread.interrupt();
+            aggressiveComputer = GameplaySettingsManager.getInstance(this).getAggressiveComputers();
+            smartComputer = GameplaySettingsManager.getInstance(this).getSmartComputer();
+
+            selected = defaultSquare;
+            while (moveThread != null && moveThread.isAlive()) {
+                moveThread.interrupt();
+            }
+            clearPieces();
+            singleGame.newGame();
+            startNewGame(singleGame.isKnightsOnly());
+            playerPointLabel.setText(getResources().getText(R.string.player_points).toString() + " " + singleGame.getPlayerPoints());
+            computerPointLabel.setText(getResources().getText(R.string.computer_points).toString() + " " + singleGame.getComputerPoints());
         }
-        clearPieces();
-        singleGame.newGame();
-        startNewGame(singleGame.isKnightsOnly());
-        playerPointLabel.setText(getResources().getText(R.string.player_points).toString() + " " + singleGame.getPlayerPoints());
-        computerPointLabel.setText(getResources().getText(R.string.computer_points).toString() + " " + singleGame.getComputerPoints());
-        return;
     }
 
     void clearPieces() {
@@ -469,13 +474,20 @@ public class SinglePlayerBoard extends AppCompatActivity {
                 board[i][j].setPiece(Piece.NONE);
                 board[i][j].setPieceCount(0);
             }
-
-        return;
     }
 
     void startNewGame(boolean knightsOnly) {
         drawBoard(knightsOnly, boardSize);
-        return;
+        if (GameplaySettingsManager.getInstance(this).getMoveSecond()) {
+            singleGame.setTurn(OPPONENT);
+            computerStartThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    moveComputer();
+                }
+            });
+            computerStartThread.start();
+        }
     }
 
     public boolean bishopTie() {
