@@ -60,4 +60,10 @@ public class PlaySelection extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPostResume() {
+        buttonsClickable = true;
+        super.onPostResume();
+    }
+
 }
