@@ -97,45 +97,17 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="@string/play"
+        android:text="@string/main_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:id="@+id/play_button"
+        android:id="@+id/main_play_button"
         android:textSize="25sp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:background="@color/colorAccent"
-        android:onClick="playButtonClicked"
-        android:layout_below="@+id/mainImage_board1"
-        android:layout_centerHorizontal="true"/>
-
-    <Button
-        android:text="@string/host_game"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:id="@+id/host_game_button"
-        android:textSize="25sp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:background="@color/colorAccent"
-        android:onClick="hostGameButtonClicked"
-        android:layout_below="@+id/play_button"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="@string/join_game"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:id="@+id/join_game_button"
-        android:textSize="25sp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:background="@color/colorAccent"
-        android:onClick="joinGameButtonClicked"
-        android:layout_below="@+id/host_game_button"
+        android:layout_below="@+id/mainImage_piece"
+        android:onClick="mainPlayButtonClicked"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -148,7 +120,7 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:background="@color/colorAccent"
-        android:layout_below="@+id/join_game_button"
+        android:layout_below="@+id/main_play_button"
         android:onClick="aboutButtonClicked"
         android:layout_centerHorizontal="true" />
 
@@ -212,6 +184,8 @@
         android:onClick="knightButtonClicked"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+
 
 
 </RelativeLayout>

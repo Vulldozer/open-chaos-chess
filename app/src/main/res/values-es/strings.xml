@@ -110,4 +110,6 @@
     <string name="queensAttack">Ataque de reinas</string>
     <string name="smartComputer">Computadora inteligente</string>
     <string name="move_second">Mover segundo (Solo)</string>
+    <string name="main_play">Play</string>
+    <string name="title_activity_play_selection">Title</string>
 </resources>

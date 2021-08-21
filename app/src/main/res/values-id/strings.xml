@@ -110,4 +110,6 @@
     <string name="queensAttack">Ratu Menyerang</string>
     <string name="smartComputer">Komputer Cerdas</string>
     <string name="move_second">Giliran Kedua (Solo)</string>
+    <string name="main_play">Play</string>
+    <string name="title_activity_play_selection">Title</string>
 </resources>

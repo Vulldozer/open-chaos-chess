@@ -110,5 +110,7 @@
     <string name="queensAttack">Queens attack</string>
     <string name="smartComputer">Smart computer</string>
     <string name="move_second">Move second (Solo)</string>
+    <string name="main_play">Play</string>
+    <string name="title_activity_play_selection">Title</string>
 </resources>
 
