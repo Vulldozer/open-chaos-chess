@@ -21,6 +21,8 @@ package dev.corruptedark.openchaoschess;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -34,23 +36,31 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class AboutActivity extends AppCompatActivity {
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 
+public class AboutActivity extends AppCompatActivity {
     RelativeLayout aboutLayout;
     Toolbar toolbar;
     TextView aboutTitle;
     TextView aboutCredits;
     TextView aboutDescript;
     TextView aboutContact;
+
     ImageView aboutImageBoard1;
     ImageView aboutImageBoard2;
     ImageView aboutImagePiece;
+
     Context context;
+
     ColorManager colorManager;
+
     AchievementHandler achievementHandler = AchievementHandler.getInstance(this);
 
     private final int KNOCK = 13;
@@ -70,16 +80,23 @@ public class AboutActivity extends AppCompatActivity {
         aboutCredits = (TextView)findViewById(R.id.about_credits);
         aboutDescript = (TextView)findViewById(R.id.about_descript);
         aboutContact = (TextView)findViewById(R.id.about_contact);
+
+
         aboutImageBoard1 = (ImageView)findViewById(R.id.about_image_board1);
         aboutImageBoard2 = (ImageView)findViewById(R.id.about_image_board2);
         aboutImagePiece = (ImageView)findViewById(R.id.about_image_piece);
+
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         aboutImagePiece.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(++knockCount == KNOCK){
-                    Toast.makeText(context, "You have discovered the secret.", Toast.LENGTH_LONG).show(); // IF YOU STILL HAVEN'T FIGURED IT OUT JUST PRESS
-                    achievementHandler.incrementInMemory(AchievementHandler.SECRET_KNOCK);                    // THE ICON IN THE ABOUT PAGE 13 TIMES
+                    Toast.makeText(context, "You have discovered the secret.", Toast.LENGTH_LONG).show();
+                    achievementHandler.incrementInMemory(AchievementHandler.SECRET_KNOCK);
                     achievementHandler.saveValues();
                     Intent intent = new Intent(AboutActivity.this,SecretActivity.class);
                     knockCount = 0;
@@ -109,6 +126,7 @@ public class AboutActivity extends AppCompatActivity {
         int height = size.y;
 
         int iconWidth = (int)(width * 0.40);
+        int buttonHeight = (int)(height * .075);
         int buttonGap = (int)(height * .03);
 
         RelativeLayout.LayoutParams iconParams = new RelativeLayout.LayoutParams(iconWidth,iconWidth);
@@ -147,6 +165,7 @@ public class AboutActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == android.R.id.home)
             finish();
+
         return super.onOptionsItemSelected(item);
     }
 
