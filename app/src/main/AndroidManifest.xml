@@ -16,27 +16,27 @@
         <activity
             android:name=".PlaySelection"
             android:label="@string/title_activity_play_selection"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".StartClientActivity" />
         <activity android:name=".StartHostActivity" />
         <activity
             android:name=".AchievementDetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".AchievementsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".MultiPlayerBoard"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".SinglePlayerBoard"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".AboutActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="unspecified" />
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="unspecified">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,11 +45,11 @@
         </activity>
         <activity
             android:name=".SecretActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="unspecified"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".SettingsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="unspecified" />
     </application>
 
 </manifest>
