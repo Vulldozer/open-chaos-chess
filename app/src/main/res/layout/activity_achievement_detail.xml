@@ -41,7 +41,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="5dp"
-                app:srcCompat="@drawable/ic_icon" />
+                app:srcCompat="@drawable/ic_trophy" />
 
             <TextView
                 android:id="@+id/achievement_detail_title_view"
