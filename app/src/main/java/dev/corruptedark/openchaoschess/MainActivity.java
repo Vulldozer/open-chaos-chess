@@ -47,36 +47,24 @@ public class MainActivity extends AppCompatActivity {
     public final int YOU = -1;
     public final int OPPONENT = 1;
     public final int NONE = 0;
-
     private final double RATIO_THRESHOLD = 0.2;
-
     final int SELECT_PLAYERS = 420;
     final int REQUEST_ACHIEVEMENTS = 666;
     final int KNIGHT_TIME = 10000;
     final int CHECK_INBOX = 69;
-
     volatile boolean buttonsClickable = true;
 
     RelativeLayout mainLayout;
-    TextView mainTitle;
-    TextView mainSlogan;
-    Button mainPlayButton;
-    Button aboutButton;
-    Button issuesButton;
-    Button quitButton;
+    ImageView mainPlayButton;
+    ImageView aboutButton;
+    ImageView issuesButton;
+    ImageView quitButton;
     ImageButton settingsButton;
     ImageButton achievementsButton;
     ImageButton knightButton;
-    ImageView mainImage_board1;
-    ImageView mainImage_board2;
-    ImageView mainImage_piece;
-
     Handler knightHandler;
-
     AchievementHandler achievementHandler;
-
     ColorManager colorManager;
-
     Random rand = new Random(System.currentTimeMillis());
 
     Runnable knightChecker = new Runnable() {
@@ -96,26 +84,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         achievementHandler = AchievementHandler.getInstance(this);
-
-        mainTitle = (TextView)findViewById(R.id.main_title);
-        mainSlogan = (TextView)findViewById(R.id.main_slogan);
-        mainPlayButton = (Button)findViewById(R.id.main_play_button);
-        aboutButton = (Button)findViewById(R.id.about_button);
-        quitButton = (Button)findViewById(R.id.quit_button);
-        issuesButton = (Button)findViewById(R.id.issues_button);
+        mainPlayButton = (ImageView)findViewById(R.id.main_play_button);
+        aboutButton = (ImageView)findViewById(R.id.about_button);
+        quitButton = (ImageView)findViewById(R.id.quit_button);
+        issuesButton = (ImageView)findViewById(R.id.issues_button);
         settingsButton = (ImageButton)findViewById(R.id.settings_button);
         achievementsButton = (ImageButton)findViewById(R.id.achievements_button);
         knightButton = (ImageButton)findViewById(R.id.knight_button);
-        mainImage_board1 = (ImageView)findViewById(R.id.mainImage_board1);
-        mainImage_board2 = (ImageView)findViewById(R.id.mainImage_board2);
-        mainImage_piece = (ImageView)findViewById(R.id.mainImage_piece);
-
         mainLayout = (RelativeLayout)findViewById(R.id.activity_main);
-
         colorManager = ColorManager.getInstance(this);
-
         knightHandler = new Handler(Looper.getMainLooper());
         startKnight();
     }
@@ -188,61 +166,6 @@ public class MainActivity extends AppCompatActivity {
             horizontalPadding = convertDpToPx(10);
         }
 
-        RelativeLayout.LayoutParams mainTitleParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, titleHeight);
-        mainTitleParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        mainTitleParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        mainTitleParams.setMargins(0, 0,0,0);
-        mainTitle.setLayoutParams(mainTitleParams);
-        mainTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int)(0.9 * titleHeight));
-
-        RelativeLayout.LayoutParams mainSloganParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, buttonHeight);
-        mainSloganParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        mainSloganParams.addRule(RelativeLayout.BELOW,R.id.main_title);
-        mainSloganParams.setMargins(0, 0,0,0);
-        mainSlogan.setLayoutParams(mainSloganParams);
-        mainSlogan.setTextSize(TypedValue.COMPLEX_UNIT_PX, textHeight);
-        mainSlogan.setGravity(Gravity.CENTER);
-
-        RelativeLayout.LayoutParams iconParams = new RelativeLayout.LayoutParams(iconWidth,iconWidth);
-        iconParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        iconParams.addRule(RelativeLayout.BELOW, R.id.main_slogan);
-        iconParams.setMargins(0, buttonGap,0,0);
-        mainImage_board1.setLayoutParams(iconParams);
-        mainImage_board2.setLayoutParams(iconParams);
-        mainImage_piece.setLayoutParams(iconParams);
-
-        mainPlayButton.setTextSize(TypedValue.COMPLEX_UNIT_PX,buttonText);
-        RelativeLayout.LayoutParams mainPlayButtonParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, buttonHeight);
-        mainPlayButtonParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        mainPlayButtonParams.addRule(RelativeLayout.BELOW, R.id.mainImage_piece);
-        mainPlayButtonParams.setMargins(0, buttonGap,0,0);
-        mainPlayButton.setPadding(horizontalPadding, 0, horizontalPadding, 0);
-        mainPlayButton.setLayoutParams(mainPlayButtonParams);
-
-        aboutButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, buttonText);
-        RelativeLayout.LayoutParams aboutButtonParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, buttonHeight);
-        aboutButtonParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        aboutButtonParams.addRule(RelativeLayout.BELOW, R.id.main_play_button);
-        aboutButtonParams.setMargins(0, buttonGap,0,0);
-        aboutButton.setPadding(horizontalPadding, 0, horizontalPadding, 0);
-        aboutButton.setLayoutParams(aboutButtonParams);
-
-        issuesButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, buttonText);
-        RelativeLayout.LayoutParams issuesButtonParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, buttonHeight);
-        issuesButtonParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        issuesButtonParams.addRule(RelativeLayout.BELOW, R.id.about_button);
-        issuesButtonParams.setMargins(0, buttonGap,0,0);
-        issuesButton.setPadding(horizontalPadding, 0, horizontalPadding, 0);
-        issuesButton.setLayoutParams(issuesButtonParams);
-
-        quitButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, buttonText);
-        RelativeLayout.LayoutParams quitButtonParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, buttonHeight);
-        quitButtonParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        quitButtonParams.addRule(RelativeLayout.BELOW, R.id.issues_button);
-        quitButtonParams.setMargins(0, buttonGap,0,0);
-        quitButton.setPadding(horizontalPadding, 0, horizontalPadding, 0);
-        quitButton.setLayoutParams(quitButtonParams);
-
         RelativeLayout.LayoutParams settingsButtonParams = new RelativeLayout.LayoutParams(buttonHeight, buttonHeight);
         settingsButtonParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
         settingsButtonParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -256,20 +179,7 @@ public class MainActivity extends AppCompatActivity {
         achievementsButton.setLayoutParams(achievementButtonParams);
 
         knightButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.PIECE_COLOR), PorterDuff.Mode.MULTIPLY);
-        mainImage_piece.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.PIECE_COLOR), PorterDuff.Mode.MULTIPLY);
-        mainImage_board1.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1), PorterDuff.Mode.MULTIPLY);
-        mainImage_board2.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_2), PorterDuff.Mode.MULTIPLY);
         mainLayout.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BACKGROUND_COLOR));
-        mainTitle.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
-        mainSlogan.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
-        mainPlayButton.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
-        mainPlayButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
-        aboutButton.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
-        aboutButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
-        issuesButton.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
-        issuesButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
-        quitButton.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
-        quitButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
         settingsButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
         settingsButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.TEXT_COLOR),PorterDuff.Mode.MULTIPLY);
         achievementsButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
@@ -337,60 +247,6 @@ public class MainActivity extends AppCompatActivity {
             horizontalPadding = convertDpToPx(10);
         }
 
-        RelativeLayout.LayoutParams mainTitleParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, titleHeight);
-        mainTitleParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        mainTitleParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-        mainTitleParams.setMargins(0, 0,0,0);
-        mainTitle.setLayoutParams(mainTitleParams);
-        mainTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int)(0.8 * titleHeight));
-
-        RelativeLayout.LayoutParams mainSloganParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 2 * textHeight);
-        mainSloganParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        mainSloganParams.addRule(RelativeLayout.BELOW,R.id.main_title);
-        mainSloganParams.setMargins(0, 0,0,0);
-        mainSlogan.setLayoutParams(mainSloganParams);
-        mainSlogan.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) (0.89 * textHeight));
-        mainSlogan.setGravity(Gravity.CENTER);
-
-        RelativeLayout.LayoutParams iconParams = new RelativeLayout.LayoutParams(iconWidth,iconWidth);
-        iconParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        iconParams.addRule(RelativeLayout.BELOW, R.id.main_slogan);
-        iconParams.setMargins(0, buttonGap,0,0);
-        mainImage_board1.setLayoutParams(iconParams);
-        mainImage_board2.setLayoutParams(iconParams);
-        mainImage_piece.setLayoutParams(iconParams);
-
-        mainPlayButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, buttonText);
-        RelativeLayout.LayoutParams mainPlayButtonParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, buttonHeight);
-        mainPlayButtonParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        mainPlayButtonParams.addRule(RelativeLayout.BELOW, R.id.mainImage_piece);
-        mainPlayButtonParams.setMargins(0, buttonGap,0,0);
-        mainPlayButton.setPadding(horizontalPadding, 0, horizontalPadding, 0);
-        mainPlayButton.setLayoutParams(mainPlayButtonParams);
-
-        aboutButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, buttonText);
-        RelativeLayout.LayoutParams aboutButtonParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, buttonHeight);
-        aboutButtonParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        aboutButtonParams.addRule(RelativeLayout.BELOW, R.id.main_play_button);
-        aboutButtonParams.setMargins(0, buttonGap,0,0);
-        aboutButton.setPadding(horizontalPadding, 0, horizontalPadding, 0);
-        aboutButton.setLayoutParams(aboutButtonParams);
-
-        issuesButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, buttonText);
-        RelativeLayout.LayoutParams issuesButtonParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, buttonHeight);
-        issuesButtonParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        issuesButtonParams.addRule(RelativeLayout.BELOW, R.id.about_button);
-        issuesButtonParams.setMargins(0, buttonGap,0,0);
-        issuesButton.setPadding(horizontalPadding, 0, horizontalPadding, 0);
-        issuesButton.setLayoutParams(issuesButtonParams);
-
-        quitButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, buttonText);
-        RelativeLayout.LayoutParams quitButtonParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, buttonHeight);
-        quitButtonParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        quitButtonParams.addRule(RelativeLayout.BELOW, R.id.issues_button);
-        quitButtonParams.setMargins(0, buttonGap,0,0);
-        quitButton.setPadding(horizontalPadding, 0, horizontalPadding, 0);
-        quitButton.setLayoutParams(quitButtonParams);
 
         RelativeLayout.LayoutParams settingsButtonParams = new RelativeLayout.LayoutParams(buttonHeight, buttonHeight);
         settingsButtonParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
@@ -407,20 +263,7 @@ public class MainActivity extends AppCompatActivity {
         colorManager = ColorManager.getInstance(this);
 
         knightButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.PIECE_COLOR), PorterDuff.Mode.MULTIPLY);
-        mainImage_piece.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.PIECE_COLOR), PorterDuff.Mode.MULTIPLY);
-        mainImage_board1.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1), PorterDuff.Mode.MULTIPLY);
-        mainImage_board2.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_2), PorterDuff.Mode.MULTIPLY);
         mainLayout.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BACKGROUND_COLOR));
-        mainTitle.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
-        mainSlogan.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
-        mainPlayButton.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
-        mainPlayButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
-        aboutButton.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
-        aboutButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
-        issuesButton.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
-        issuesButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
-        quitButton.setTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
-        quitButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
         settingsButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
         settingsButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.TEXT_COLOR),PorterDuff.Mode.MULTIPLY);
         achievementsButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));

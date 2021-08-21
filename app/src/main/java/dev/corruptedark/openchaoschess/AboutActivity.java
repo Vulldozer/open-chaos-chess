@@ -109,7 +109,6 @@ public class AboutActivity extends AppCompatActivity {
         int width = size.x;
         int height = size.y;
         int iconWidth = (int)(width * 0.40);
-        int buttonHeight = (int)(height * .075);
         int buttonGap = (int)(height * .03);
         int orientation = getResources().getConfiguration().orientation;
         if (orientation != Configuration.ORIENTATION_LANDSCAPE) // In portrait only

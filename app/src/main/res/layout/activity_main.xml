@@ -29,129 +29,121 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="dev.corruptedark.openchaoschess.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:id="@+id/main_title"
-        android:textSize="40sp"
-        android:gravity="center"
-        android:textColor="#ffffff"
-        android:maxLines="1"
+    <ImageView
+        android:id="@+id/chaos"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="-40dp"
+        android:layout_marginBottom="-70dp"
+        android:gravity="center"
+        app:srcCompat="@drawable/chaos"
+        tools:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/main_play_button"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_below="@+id/chaos"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="15dp"
+        android:adjustViewBounds="true"
+        android:onClick="mainPlayButtonClicked"
+        android:scaleType="centerCrop"
+        android:text="@string/main_play"
+        app:srcCompat="@drawable/ic_chaotic_button" />
 
     <TextView
-        android:text="@string/new_slogan"
+        android:id="@+id/mainPlayText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/main_slogan"
-        android:textStyle="normal|bold|italic"
-        android:textAllCaps="true"
-        android:textColor="@color/materialcolorpicker__white"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:fontFamily="sans-serif"
-        android:textSize="16sp"
-        android:layout_below="@+id/main_title"
-        android:layout_centerHorizontal="true" />
-
-    <!--<ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:id="@+id/mainImage"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/ic_icon"
-        android:layout_marginTop="17dp"
-        android:layout_below="@+id/main_slogan"
-        android:layout_centerHorizontal="true" /> -->
-
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:id="@+id/mainImage_board1"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/ic_icon_board1"
-        android:layout_marginTop="17dp"
-        android:layout_below="@+id/main_slogan"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:id="@+id/mainImage_board2"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/ic_icon_board2"
-        android:layout_marginTop="17dp"
-        android:layout_below="@+id/main_slogan"
-        android:layout_centerHorizontal="true" />
-
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:id="@+id/mainImage_piece"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@drawable/ic_icon_piece"
-        android:layout_marginTop="17dp"
-        android:layout_below="@+id/main_slogan"
-        android:layout_centerHorizontal="true" />
-
-    <Button
+        android:layout_alignBottom="@id/main_play_button"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/unlock"
+        android:paddingBottom="10dp"
         android:text="@string/main_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:id="@+id/main_play_button"
-        android:textSize="25sp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:background="@color/colorAccent"
-        android:layout_below="@+id/mainImage_piece"
-        android:onClick="mainPlayButtonClicked"
-        android:layout_centerHorizontal="true" />
+        android:textSize="48sp" />
 
-    <Button
+    <ImageView
         android:text="@string/about"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="15dp"
         android:id="@+id/about_button"
         android:textSize="25sp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:background="@color/colorAccent"
         android:layout_below="@+id/main_play_button"
         android:onClick="aboutButtonClicked"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/ic_chaotic_button"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        />
 
-    <Button
-        android:text="@string/issues"
+    <TextView
+        android:id="@+id/aboutText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_alignBottom="@id/about_button"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/unlock"
+        android:paddingBottom="10dp"
+        android:text="@string/about"
+        android:textSize="48sp" />
+
+    <ImageView
+        android:text="@string/issues"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@drawable/ic_chaotic_button"
         android:id="@+id/issues_button"
         android:textSize="25sp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:background="@color/colorAccent"
         android:layout_below="@+id/about_button"
         android:onClick="issuesButtonClicked"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
 
-    <Button
-        android:text="@string/quit"
+        />
+
+    <TextView
+        android:id="@+id/issuesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_alignBottom="@id/issues_button"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/unlock"
+        android:paddingBottom="10dp"
+        android:text="@string/issues"
+        android:textSize="48sp" />
+
+    <ImageView
+        android:text="@string/quit"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="15dp"
+        app:srcCompat="@drawable/ic_chaotic_button"
         android:id="@+id/quit_button"
         android:layout_below="@+id/issues_button"
-        android:background="@color/colorAccent"
         android:textSize="25sp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:onClick="quitButtonClicked"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        />
 
+
+    <TextView
+        android:id="@+id/quitText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/quit_button"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/unlock"
+        android:paddingBottom="10dp"
+        android:text="@string/quit"
+        android:textSize="48sp" />
 
     <ImageButton
         android:layout_width="50dp"
@@ -184,8 +176,6 @@
         android:onClick="knightButtonClicked"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
-
-
 
 
 </RelativeLayout>

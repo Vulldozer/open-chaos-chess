@@ -22,4 +22,5 @@
     <color name="colorPrimaryDark">#FF454545</color>
     <color name="colorAccent">#FF800000</color>
     <color name="colorLinkAccent">#FFFF0000</color>
+    <color name="noAlpha">#FFFFFFFF</color>
 </resources>
