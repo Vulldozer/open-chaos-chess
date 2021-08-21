@@ -1,32 +1,19 @@
 package dev.corruptedark.openchaoschess;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
 import dev.corruptedark.openchaoschess.databinding.ActivityPlaySelectionBinding;
 
 public class PlaySelection extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityPlaySelectionBinding binding;
     volatile boolean buttonsClickable = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityPlaySelectionBinding.inflate(getLayoutInflater());
+        ActivityPlaySelectionBinding binding = ActivityPlaySelectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
     }
