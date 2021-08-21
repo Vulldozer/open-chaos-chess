@@ -88,27 +88,27 @@
                 android:textColor="#ffffff" />
 
             <TextView
+                android:id="@+id/about_credits"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/credits"
-                android:id="@+id/about_credits"
-                android:textSize="15sp"
                 android:layout_below="@+id/about_title"
                 android:layout_centerHorizontal="true"
-                android:gravity="center_horizontal"
-                android:textColor="#ffffff" />
+                android:gravity="start|center_horizontal"
+                android:text="@string/credits"
+                android:textColor="#ffffff"
+                android:textSize="15sp" />
 
             <TextView
+                android:id="@+id/about_descript"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/descript"
-                android:id="@+id/about_descript"
                 android:layout_below="@+id/about_credits"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
                 android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginBottom="5dp"
+                android:text="@string/descript"
                 android:textColor="#ffffff" />
 
             <TextView

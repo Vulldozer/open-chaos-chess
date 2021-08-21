@@ -21,8 +21,7 @@ package dev.corruptedark.openchaoschess;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
+import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -36,14 +35,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 
 public class AboutActivity extends AppCompatActivity {
     RelativeLayout aboutLayout;
@@ -52,20 +46,15 @@ public class AboutActivity extends AppCompatActivity {
     TextView aboutCredits;
     TextView aboutDescript;
     TextView aboutContact;
-
     ImageView aboutImageBoard1;
     ImageView aboutImageBoard2;
     ImageView aboutImagePiece;
-
     Context context;
-
     ColorManager colorManager;
-
     AchievementHandler achievementHandler = AchievementHandler.getInstance(this);
 
     private final int KNOCK = 13;
     private int knockCount = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,13 +69,9 @@ public class AboutActivity extends AppCompatActivity {
         aboutCredits = (TextView)findViewById(R.id.about_credits);
         aboutDescript = (TextView)findViewById(R.id.about_descript);
         aboutContact = (TextView)findViewById(R.id.about_contact);
-
-
         aboutImageBoard1 = (ImageView)findViewById(R.id.about_image_board1);
         aboutImageBoard2 = (ImageView)findViewById(R.id.about_image_board2);
         aboutImagePiece = (ImageView)findViewById(R.id.about_image_piece);
-
-
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -121,21 +106,22 @@ public class AboutActivity extends AppCompatActivity {
         }
         Point size = new Point();
         display.getSize(size);
-
         int width = size.x;
         int height = size.y;
-
         int iconWidth = (int)(width * 0.40);
         int buttonHeight = (int)(height * .075);
         int buttonGap = (int)(height * .03);
-
-        RelativeLayout.LayoutParams iconParams = new RelativeLayout.LayoutParams(iconWidth,iconWidth);
-        iconParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-        iconParams.addRule(RelativeLayout.BELOW, R.id.about_toolbar);
-        iconParams.setMargins(0, buttonGap,0,buttonGap);
-        aboutImageBoard1.setLayoutParams(iconParams);
-        aboutImageBoard2.setLayoutParams(iconParams);
-        aboutImagePiece.setLayoutParams(iconParams);
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation != Configuration.ORIENTATION_LANDSCAPE) // In portrait only
+        {
+            RelativeLayout.LayoutParams iconParams = new RelativeLayout.LayoutParams(iconWidth,iconWidth);
+            iconParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            iconParams.addRule(RelativeLayout.BELOW, R.id.about_toolbar);
+            iconParams.setMargins(0, buttonGap,0,buttonGap);
+            aboutImageBoard1.setLayoutParams(iconParams);
+            aboutImageBoard2.setLayoutParams(iconParams);
+            aboutImagePiece.setLayoutParams(iconParams);
+        }
 
         toolbar.setTitleTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
         toolbar.setBackgroundColor(colorManager.getColorFromFile(ColorManager.SECONDARY_COLOR));
