@@ -20,6 +20,7 @@
 package dev.corruptedark.openchaoschess;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.net.Uri;
@@ -28,18 +29,13 @@ import android.os.Handler;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
 
@@ -49,9 +45,7 @@ public class MainActivity extends AppCompatActivity {
     public final int NONE = 0;
     private final double RATIO_THRESHOLD = 0.2;
     final int SELECT_PLAYERS = 420;
-    final int REQUEST_ACHIEVEMENTS = 666;
     final int KNIGHT_TIME = 10000;
-    final int CHECK_INBOX = 69;
     volatile boolean buttonsClickable = true;
 
     RelativeLayout mainLayout;
@@ -129,14 +123,11 @@ public class MainActivity extends AppCompatActivity {
 
         int width = size.x;
         int height = size.y;
-
         int iconWidth;
         int buttonHeight;
         int buttonGap;
-
         int titleHeight;
         int buttonText;
-
         int textHeight;
         int horizontalPadding = convertDpToPx(10);
 
@@ -165,25 +156,24 @@ public class MainActivity extends AppCompatActivity {
             buttonText = textHeight;
             horizontalPadding = convertDpToPx(10);
         }
+            RelativeLayout.LayoutParams settingsButtonParams = new RelativeLayout.LayoutParams(buttonHeight, buttonHeight);
+            settingsButtonParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            settingsButtonParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            settingsButtonParams.setMargins(0, 0, 0, 0);
+            settingsButton.setLayoutParams(settingsButtonParams);
 
-        RelativeLayout.LayoutParams settingsButtonParams = new RelativeLayout.LayoutParams(buttonHeight, buttonHeight);
-        settingsButtonParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        settingsButtonParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        settingsButtonParams.setMargins(0, 0,0,0);
-        settingsButton.setLayoutParams(settingsButtonParams);
+            RelativeLayout.LayoutParams achievementButtonParams = new RelativeLayout.LayoutParams(buttonHeight, buttonHeight);
+            achievementButtonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            achievementButtonParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            achievementButtonParams.setMargins(0, 0, 0, 0);
+            achievementsButton.setLayoutParams(achievementButtonParams);
 
-        RelativeLayout.LayoutParams achievementButtonParams = new RelativeLayout.LayoutParams(buttonHeight, buttonHeight);
-        achievementButtonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        achievementButtonParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        achievementButtonParams.setMargins(0, 0,0,0);
-        achievementsButton.setLayoutParams(achievementButtonParams);
-
-        knightButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.PIECE_COLOR), PorterDuff.Mode.MULTIPLY);
-        mainLayout.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BACKGROUND_COLOR));
-        settingsButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
-        settingsButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.TEXT_COLOR),PorterDuff.Mode.MULTIPLY);
-        achievementsButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
-        achievementsButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.TEXT_COLOR),PorterDuff.Mode.MULTIPLY);
+            knightButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.PIECE_COLOR), PorterDuff.Mode.MULTIPLY);
+            mainLayout.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BACKGROUND_COLOR));
+            settingsButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
+            settingsButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.TEXT_COLOR), PorterDuff.Mode.MULTIPLY);
+            achievementsButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
+            achievementsButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.TEXT_COLOR), PorterDuff.Mode.MULTIPLY);
 
         knightButton.bringToFront();
 
