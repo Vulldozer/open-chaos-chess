@@ -1,7 +1,4 @@
-
-<img src="https://imgur.com/vGlxh6Z.png" alt="Banner" width="600" />
-
-# open-chaos-chess
+# Open Chaos Chess
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/CorruptedArk/open-chaos-chess)](https://github.com/CorruptedArk/open-chaos-chess/releases)
 [![GitHub](https://img.shields.io/github/license/CorruptedArk/open-chaos-chess)](https://github.com/CorruptedArk/open-chaos-chess/blob/master/LICENSE)
 [![GitHub Releases](https://img.shields.io/github/downloads/CorruptedArk/open-chaos-chess/latest/total)](https://github.com/CorruptedArk/open-chaos-chess/releases)
@@ -12,12 +9,10 @@
     alt="Get it on F-Droid"
     height="80">](https://f-droid.org/packages/dev.corruptedark.openchaoschess)
 
-## This Fork
-This fork is just a testing ground for me to study how android development works, it's not meant to have polished clean code or to be functional at all really, as such I recommend you do not use this.
 ## About
-Open Chaos Chess is a free and open source version of [Chaos Chess](https://play.google.com/store/apps/details?id=dev.corruptedark.chaoschess), stripped of Google Play Services. Chaos Chess is a variation of chess where you can pick the piece that moves, but the moves are random. As such, you no longer win by checkmates. Instead, you win by eliminating your opponent's pieces. Have fun, and may the RNG be ever in your favor.
+Chaos Chess Arcade (by Vuldozer) is a fork of [Open Chaos Chess](https://github.com/CorruptedArk/open-chaos-chess) (by CorruptedArk) which in turn is a free and open source version of  [Chaos Chess](https://play.google.com/store/apps/details?id=dev.corruptedark.chaoschess), stripped of Google Play Services. Chaos Chess is a variation of chess where you can pick the piece that moves, but the moves are random. As such, you no longer win by checkmates. Instead, you win by eliminating your opponent's pieces. Have fun, and may the RNG be ever in your favor.
 
-All future development for Chaos Chess will be in this project.
+Chaos Chess Arcade is a different take on Chaos Chess where the goal is to stick to the core idea but have different gameplay.
 
 ### Permissions
 `ACCESS_FINE_LOCATION` is only used as a mandatory prerequisite for Bluetooth functionality. No location data is stored or sent anywhere by this application.
@@ -25,12 +20,9 @@ All future development for Chaos Chess will be in this project.
 `READ_EXTERNAL_STORAGE` and `WRITE_EXTERNAL_STORAGE` are only used for import/export of color preferences and achievements.
 
 
-## Current Status
-As of the most recent commit to the master branch, achievements and single player games are working. However, since it is not using any online services, the progress is only saved locally and is lost if app data is wiped or if a player installs on a new device. Multiplayer is now working over Bluetooth for the most part. Pieces are now animated on move. Bloodthirst feature has been implemented. While Bloodthirst is active, pieces will always attack if possible.
-
 ----
 
-## Screenshots
+## Screenshots (outdated)
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/1-2.png" alt="Main menu" width="200" />
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/2-2.png" alt="Normal Game Start" width="200" />
 <img src="fastlane/metadata/android/en-US/images/phoneScreenshots/3-2.png" alt="Normal Game Playing" width="200" />
