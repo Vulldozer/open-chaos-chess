@@ -30,7 +30,7 @@ android {
     }
     compileSdkVersion 30
     defaultConfig {
-        applicationId "dev.corruptedark.openchaoschess"
+        applicationId "dev.corruptedark.chaoschessarcade"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode 51
