@@ -20,6 +20,14 @@ apply plugin: 'com.android.application'
 
 android {
 
+    signingConfigs {
+        release {
+        storeFile file('D:\\Repos\\open-chaos-chess\\app\\build\\outputs\\keystore.jks')
+            storePassword '123456789'
+            keyAlias 'key'
+            keyPassword '123456789'
+        }
+    }
     compileSdkVersion 30
     defaultConfig {
         applicationId "dev.corruptedark.openchaoschess"
@@ -32,6 +40,7 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        signingConfig signingConfigs.release
     }
 
     def name = defaultConfig.applicationId + "-" + defaultConfig.versionName
