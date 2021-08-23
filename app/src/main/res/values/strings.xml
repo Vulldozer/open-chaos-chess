@@ -114,4 +114,5 @@
     <string name="title_activity_play_selection">Title</string>
     <string name="multiplayer">Multiplayer</string>
     <string name="achievements">Achievements</string>
+    <string name="bug_report">Report a bug</string>
 </resources>

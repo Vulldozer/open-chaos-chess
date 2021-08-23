@@ -247,29 +247,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, PlaySelection.class));
         }
     }
-    /*
-    public void aboutButtonClicked(View view){
-        if (buttonsClickable) {
-            buttonsClickable = false;
-            achievementHandler.incrementInMemory(AchievementHandler.OPENED_ABOUT);
-            achievementHandler.saveValues();
-
-            startActivity(new Intent(MainActivity.this, AboutActivity.class));
-        }
-    }
-     */
-
-    public void issuesButtonClicked(View view)
-    {
-        if (buttonsClickable) {
-            buttonsClickable = false;
-            String url = getString(R.string.issues_url);
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(url));
-            startActivity(intent);
-        }
-    }
-
 
     public void quitButtonClicked(View view){
         finish();

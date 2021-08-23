@@ -28,4 +28,14 @@
         android:title="@string/export_file"
         android:visible="true"
         app:showAsAction = "withText"/>
+
+    <item android:id="@+id/report_a_bug"
+        android:title="@string/bug_report"
+        android:visible="true"
+        app:showAsAction = "withText"/>
+
+    <item android:id="@+id/about_menu_option"
+        android:title="@string/about"
+        android:visible="true"
+        app:showAsAction = "withText"/>
 </menu>

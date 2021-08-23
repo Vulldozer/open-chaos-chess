@@ -401,9 +401,27 @@ public class SettingsActivity extends AppCompatActivity {
             case R.id.export_file:
                 exportSettings();
                 return true;
+            case R.id.about_menu_option:
+                aboutButtonClicked();
+                return true;
+            case R.id.report_a_bug:
+                issuesButtonClicked();
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+    
+    private void issuesButtonClicked()
+    {
+        String url = getString(R.string.issues_url);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+        startActivity(intent);
+    }
+
+    private void aboutButtonClicked()
+    {
+            startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
     }
 
     private void importSettings()
