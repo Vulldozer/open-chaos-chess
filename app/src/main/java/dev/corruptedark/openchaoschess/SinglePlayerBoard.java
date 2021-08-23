@@ -22,8 +22,6 @@ package dev.corruptedark.openchaoschess;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
-
-
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -36,7 +34,6 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -46,14 +43,11 @@ import android.view.animation.TranslateAnimation;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.CompoundButtonCompat;
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -66,9 +60,7 @@ public class SinglePlayerBoard extends AppCompatActivity {
     public final int YOU = -1;
     public final int OPPONENT = 1;
     public final int NONE = 0;
-
     private final double RATIO_THRESHOLD = 0.2;
-
     public final int SLEEP_DURATION = 500; // How much the computer waits before it makes a move
 
     int boardSize, squareSize, xPosition, yPosition;
@@ -83,23 +75,16 @@ public class SinglePlayerBoard extends AppCompatActivity {
     Thread computerStartThread;
     RelativeLayout boardLayout;
     private Square animatedSquare;
-
     private boolean squaresAdded;
-
     Toolbar toolbar;
-
     AchievementHandler achievementHandler;
-
     ColorManager colorManager;
-
     int boardColor1;
     int boardColor2;
     int selectColor;
     int pieceColor;
-
     private boolean bloodThirsty;
     private boolean bloodThirstQueued = false;
-
     private static volatile boolean aggressiveComputer;
     private static volatile boolean smartComputer;
 
