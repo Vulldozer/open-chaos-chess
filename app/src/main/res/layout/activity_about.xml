@@ -88,10 +88,23 @@
                 android:textColor="#ffffff" />
 
             <TextView
+                android:id="@+id/about_descript"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/about_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/description"
+                android:textColor="#ffffff" />
+
+            <TextView
                 android:id="@+id/about_credits"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/about_title"
+                android:layout_below="@id/about_descript"
                 android:layout_centerHorizontal="true"
                 android:gravity="start|center_horizontal"
                 android:text="@string/credits"
@@ -99,31 +112,18 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/about_descript"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/about_credits"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:text="@string/descript"
-                android:textColor="#ffffff" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/contact"
                 android:id="@+id/about_contact"
-                android:autoLink="web|email"
-                android:textColor="#ffffff"
-                android:textColorLink="@color/colorAccent"
-                android:layout_alignLeft="@+id/about_descript"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/about_credits"
                 android:layout_alignStart="@+id/about_descript"
-                android:layout_alignRight="@+id/about_descript"
+                android:layout_alignLeft="@id/about_credits"
                 android:layout_alignEnd="@+id/about_descript"
-                android:layout_below="@+id/about_descript" />
+                android:layout_alignRight="@id/about_credits"
+                android:autoLink="web|email"
+                android:text="@string/contact"
+                android:textColor="#ffffff"
+                android:textColorLink="@color/colorAccent" />
 
         </RelativeLayout>
     </ScrollView>

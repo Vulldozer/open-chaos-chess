@@ -79,14 +79,13 @@ public class SettingsActivity extends AppCompatActivity {
     Button saveColorButton;
     ColorPicker colorPicker;
     RelativeLayout layout;
-
+    AchievementHandler achievementHandler = AchievementHandler.getInstance(this);
     Toolbar toolbar;
 
 
     ColorManager colorManager;
 
     private enum Requests{IMPORT, EXPORT}
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -410,7 +409,7 @@ public class SettingsActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-    
+
     private void issuesButtonClicked()
     {
         String url = getString(R.string.issues_url);
@@ -421,7 +420,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void aboutButtonClicked()
     {
-            startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
+        achievementHandler.incrementInMemory(AchievementHandler.OPENED_ABOUT);
+        achievementHandler.saveValues();
+        startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
     }
 
     private void importSettings()

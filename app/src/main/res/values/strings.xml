@@ -17,45 +17,46 @@
       along with this program.  If not, see <https://www.gnu.org/licenses/>.
       -->
 <resources>
-    <string name="app_name">Open Chaos Chess</string>
+    <string name="app_name">Chaos Chess Arcade</string>
     <string name="new_game">New Game</string>
     <string name="player_points">Player Points:   </string>
     <string name="computer_points">Computer Points:   </string>
-    <string name="you_won">Noice dude! You Won!</string>
+    <string name="you_won">Nice dude! You Won!</string>
     <string name="you_lost">Dang dude, you lost!</string>
     <string name="cant_move_that_bruh">Can\'t move that, bruh!</string>
     <string name="not_your_turn_stupid">It\'s not your turn, bruh!</string>
     <string name="game_over_bruh">Game\'s over, bruh!</string>
     <string name="that_sucks">Aw dang dude, that sucks!</string>
     <string name="about">About</string>
-    <string name="credits">v%1$s by Noah Stanford (aka CorruptedArk)
-                            \n originally for CIS 175 Fall 2016 at MCCC as Chaos Chess
-                            \n Credit for the color picker dialog goes to Simone Pessotto (aka Pes8)
-                            \n Credit for the idea of color settings goes to Jonas Lowe
-                            \n Credit for Chess960 mode, Queens Attack Handicap, Smart Computer, and other small changes goes to egorguslyan on GitHub
-                            \n Credit for fixing text not showing properly in the settings activity for some display sizes
-                            \n Credit for Russian translations goes to LibreHacker on GitHub
-                            \n Credit for German translations goes to Lian C. Begett/RedsickleDE on GitHub
-                            \n Credit for Turkish translations goes to berkaygunduzz on GitHub
-                            \n Credit for Arabic translations and a quality of life improvement on captures goes to Vulldozer on GitHub
-                            \n Credit for Spanish translations goes to sguinetti on GitHub
-                            \n Credit for Indonesian translations goes to the7thNightmare on GitHub
-                            \n The concept for Bloodthirst was suggested by czarkoff on GitHub
-                            \n The Bloodthirst by default toggle was suggested by itsanogo on GitHub
-                            \n The aggressive computer option was suggested by vi on GitHub
+    <string name="credits"> Credits:
+                            \nChaos Chess Arcade v%1$s by Vuldozer
+                            \nForked from Open Chaos Chess by Noah Stanford (CorruptedArk)
+                            \noriginally for CIS 175 Fall 2016 at MCCC as Chaos Chess
+                            \nCredit for the color picker dialog goes to Simone Pessotto (aka Pes8)
+                            \nCredit for the idea of color settings goes to Jonas Lowe
+                            \nCredit for Chess960 mode, Queens Attack Handicap, Smart Computer, and other small changes goes to egorguslyan on GitHub
+                            \nCredit for fixing text not showing properly in the settings activity for some display sizes
+                            \nCredit for Russian translations goes to LibreHacker on GitHub
+                            \nCredit for German translations goes to Lian C. Begett/RedsickleDE on GitHub
+                            \nCredit for Turkish translations goes to berkaygunduzz on GitHub
+                            \nCredit for Arabic translations and a quality of life improvement on captures goes to Vulldozer on GitHub
+                            \nCredit for Spanish translations goes to sguinetti on GitHub
+                            \nCredit for Indonesian translations goes to the7thNightmare on GitHub
+                            \nThe concept for Bloodthirst was suggested by czarkoff on GitHub
+                            \nThe Bloodthirst by default toggle was suggested by itsanogo on GitHub
+                            \nThe aggressive computer option was suggested by vi on GitHub
                             </string>
-    <string name="descript">Open Chaos Chess is a free as in speech version of Chaos Chess.
-                            Chaos Chess is a variation of chess where you can pick the piece that moves, but the moves are random. As such, you no longer win by checkmates. Instead, you win by eliminating your opponent\'s pieces. Have fun, and may the RNG be ever in your favor.
+    <string name="description">Chaos Chess is a variation of chess where you can pick the piece that moves, but the moves are random. As such, you no longer win by checkmates. Instead, you win by eliminating your opponent\'s pieces.
+                            \nBy default, pieces have no bias to attack. However, while Bloodthirst is active, pieces will always attack if possible.
                             \n\nOpen Chaos Chess  Copyright © 2019 Noah Stanford
                             \nThis program comes with ABSOLUTELY NO WARRANTY.
                             \nThis is free software, and you are welcome to redistribute it under certain conditions.
                             \nFor the full GNU General Public License visit: https://www.gnu.org/licenses/gpl-3.0.txt
                             \n
-                            \nBy default, pieces have no bias to attack. However, while Bloodthirst is active, pieces will always attack if possible.
                             </string>
     <string name="contact">Facebook: Noah James Stanford\nTwitter: @CorruptedArk\nGitHub: CorruptedArk\n\nMy Website: corruptedark.wordpress.com\n\nEmail: noahstandingford@gmail.com\n\n</string>
     <string name="tied_bro">OOOH IT\'S TIED, BRO!</string>
-    <string name="noice">Noice!</string>
+    <string name="noice">Nice!</string>
     <string name="quit">Quit</string>
     <string name="play">singleplayer Play</string>
     <string name="quick_match">Quick Match</string>
