@@ -21,6 +21,7 @@ package dev.corruptedark.openchaoschess;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Animation;
@@ -28,8 +29,10 @@ import android.view.animation.TranslateAnimation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.RunnableFuture;
 
@@ -37,7 +40,7 @@ public class Mover {
     public final int YOU = -1;
     public final int OPPONENT = 1;
     public final int NONE = 0;
-
+    private static Set<MediaPlayer> activePlayers = new HashSet<MediaPlayer>();
     public final int SLEEP_DURATION = 500; // slows down computer?
 
     private enum Direction {UP, BACK, LEFT, RIGHT, LEFTUP, RIGHTUP, LEFTBACK, RIGHTBACK, _2R1U, _1R2U, _1L2U, _2L1U, _2L1D, _1L2D, _1R2D, _2R1D}
@@ -46,7 +49,7 @@ public class Mover {
 
     Random rand = new Random();
     Context context;
-
+    MediaPlayer mpMove;
     private Square destination;
 
     Mover(Context context) {
@@ -55,13 +58,14 @@ public class Mover {
 
     private void animateMove(final Square start, final Square end, final SingleGame singleGame) {
         final Square animatedSquare = singleGame.getAnimatedSquare();
-
+        final MediaPlayer mpPlace = MediaPlayer.create(context, R.raw.movepiece1);
+        activePlayers.add(mpPlace);
         final int team = start.getTeam();
         final String piece = start.getPiece();
         final int pieceCount = start.getPieceCount() + 1;
 
         double distance = Math.sqrt((end.getX() - start.getX()) * (end.getX() - start.getX()) + (end.getY() - start.getY()) * (end.getY() - start.getY()));
-        double speed = 0.20 * convertDpToPx(1);
+        double speed = 0.3 * convertDpToPx(1);
         long duration = (long) (distance / speed);
 
         final TranslateAnimation animation = new TranslateAnimation(0, end.getX() - start.getX(), 0, end.getY() - start.getY());
@@ -70,11 +74,9 @@ public class Mover {
         animatedSquare.setX(start.getX());
         animatedSquare.setY(start.getY());
 
-
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
                 animatedSquare.setVisibility(View.VISIBLE);
                 start.setPieceCount(0);
                 start.setTeam(NONE);
@@ -83,10 +85,10 @@ public class Mover {
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                mpPlace.start();
                 end.setTeam(team);
                 end.setPiece(piece);
                 end.setPieceCount(pieceCount);
-
                 animatedSquare.setVisibility(View.GONE);
                 animatedSquare.setPiece(Piece.NONE);
 
@@ -96,6 +98,7 @@ public class Mover {
                     end.setPiece(Piece.QUEEN);
                 }
             }
+
 
             @Override
             public void onAnimationRepeat(Animation animation) {
@@ -179,6 +182,7 @@ public class Mover {
 
                 animatedSquare.setVisibility(View.GONE);
                 animatedSquare.setPiece(Piece.NONE);
+
 
                 if (piece == Piece.PAWN && end.getJ() == 7 && end.getTeam() == OPPONENT) {
                     end.setPiece(Piece.QUEEN);
