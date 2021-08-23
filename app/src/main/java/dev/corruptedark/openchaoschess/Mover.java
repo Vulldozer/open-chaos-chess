@@ -38,7 +38,7 @@ public class Mover {
     public final int OPPONENT = 1;
     public final int NONE = 0;
 
-    public final int SLEEP_DURATION = 1000;
+    public final int SLEEP_DURATION = 500; // slows down computer?
 
     private enum Direction {UP, BACK, LEFT, RIGHT, LEFTUP, RIGHTUP, LEFTBACK, RIGHTBACK, _2R1U, _1R2U, _1L2U, _2L1U, _2L1D, _1L2D, _1R2D, _2R1D}
 

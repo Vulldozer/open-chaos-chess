@@ -69,7 +69,7 @@ public class SinglePlayerBoard extends AppCompatActivity {
 
     private final double RATIO_THRESHOLD = 0.2;
 
-    public final int SLEEP_DURATION = 1; // How much the computer waits before it makes a move
+    public final int SLEEP_DURATION = 500; // How much the computer waits before it makes a move
 
     int boardSize, squareSize, xPosition, yPosition;
     Square[][] board;
