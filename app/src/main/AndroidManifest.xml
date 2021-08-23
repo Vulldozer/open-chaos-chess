@@ -30,7 +30,7 @@
             android:screenOrientation="unspecified" />
         <activity
             android:name=".SinglePlayerBoard"
-            android:screenOrientation="unspecified" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AboutActivity"
             android:screenOrientation="unspecified" />

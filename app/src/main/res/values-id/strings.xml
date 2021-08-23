@@ -91,7 +91,7 @@
     <string name="export_file">Ekspor Ke Berkas</string>
     <string name="bloodthirst">Haus darah  </string>
     <string name="bloodthirst_notification">Haus Darah akan diaktifkan di permainan baru</string>
-    <string name="solo">Solo</string>
+    <string name="singleplayer">singleplayer</string>
     <string name="versus">Versus</string>
     <string name="settings">Pengaturan</string>
     <string name="colors_saved">Warna disimpan</string>
@@ -101,7 +101,7 @@
     <string name="wait_for_move">Tunggu hingga langkahnya selesai</string>
     <string name="bloodthirst_toggle_cancelled">Haus Darah dinonaktifkan</string>
     <string name="issues">Masalah</string>
-    <string name="issues_url">https://github.com/CorruptedArk/open-chaos-chess/issues</string>
+    <string name="issues_url">https://github.com/Vulldozer/chaos-chess-arcade</string>
     <string name="aggressive_computer">Komputer Agresif</string>
     <string name="setting_applied_on_new_game">Pengaturan akan diterapkan di permainan baru</string>
     <string name="plus_one">+1</string>
@@ -109,7 +109,9 @@
     <string name="chess960">Mode Chess960</string>
     <string name="queensAttack">Ratu Menyerang</string>
     <string name="smartComputer">Komputer Cerdas</string>
-    <string name="move_second">Giliran Kedua (Solo)</string>
+    <string name="move_second">Giliran Kedua (singleplayer)</string>
     <string name="main_play">Play</string>
     <string name="title_activity_play_selection">Title</string>
+    <string name="multiplayer">Multiplayer</string>
+    <string name="achievements">Achievements</string>
 </resources>

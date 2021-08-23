@@ -20,7 +20,6 @@
 package dev.corruptedark.openchaoschess;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.net.Uri;
@@ -49,12 +48,10 @@ public class MainActivity extends AppCompatActivity {
     volatile boolean buttonsClickable = true;
 
     RelativeLayout mainLayout;
-    ImageView mainPlayButton;
-    ImageView aboutButton;
-    ImageView issuesButton;
-    ImageView quitButton;
-    ImageButton settingsButton;
-    ImageButton achievementsButton;
+    ImageView singleplayerButton;
+    ImageView multiplayerButton;
+    ImageView achievementsButton;
+    ImageView settingsButton;
     ImageButton knightButton;
     Handler knightHandler;
     AchievementHandler achievementHandler;
@@ -79,12 +76,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         achievementHandler = AchievementHandler.getInstance(this);
-        mainPlayButton = (ImageView)findViewById(R.id.main_play_button);
-        aboutButton = (ImageView)findViewById(R.id.about_button);
-        quitButton = (ImageView)findViewById(R.id.quit_button);
-        issuesButton = (ImageView)findViewById(R.id.issues_button);
-        settingsButton = (ImageButton)findViewById(R.id.settings_button);
-        achievementsButton = (ImageButton)findViewById(R.id.achievements_button);
+        singleplayerButton = (ImageView)findViewById(R.id.singleplayer_button);
+        multiplayerButton = (ImageView)findViewById(R.id.multiplayer_button);
+        settingsButton = (ImageView) findViewById(R.id.settings_button);
+        achievementsButton = (ImageView) findViewById(R.id.achievements_button);
         knightButton = (ImageButton)findViewById(R.id.knight_button);
         mainLayout = (RelativeLayout)findViewById(R.id.activity_main);
         colorManager = ColorManager.getInstance(this);
@@ -156,24 +151,9 @@ public class MainActivity extends AppCompatActivity {
             buttonText = textHeight;
             horizontalPadding = convertDpToPx(10);
         }
-            RelativeLayout.LayoutParams settingsButtonParams = new RelativeLayout.LayoutParams(buttonHeight, buttonHeight);
-            settingsButtonParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-            settingsButtonParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            settingsButtonParams.setMargins(0, 0, 0, 0);
-            settingsButton.setLayoutParams(settingsButtonParams);
-
-            RelativeLayout.LayoutParams achievementButtonParams = new RelativeLayout.LayoutParams(buttonHeight, buttonHeight);
-            achievementButtonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-            achievementButtonParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            achievementButtonParams.setMargins(0, 0, 0, 0);
-            achievementsButton.setLayoutParams(achievementButtonParams);
 
             knightButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.PIECE_COLOR), PorterDuff.Mode.MULTIPLY);
             mainLayout.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BACKGROUND_COLOR));
-            settingsButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
-            settingsButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.TEXT_COLOR), PorterDuff.Mode.MULTIPLY);
-            achievementsButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
-            achievementsButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.TEXT_COLOR), PorterDuff.Mode.MULTIPLY);
 
         knightButton.bringToFront();
 
@@ -237,27 +217,10 @@ public class MainActivity extends AppCompatActivity {
             horizontalPadding = convertDpToPx(10);
         }
 
-
-        RelativeLayout.LayoutParams settingsButtonParams = new RelativeLayout.LayoutParams(buttonHeight, buttonHeight);
-        settingsButtonParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        settingsButtonParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        settingsButtonParams.setMargins(0, 0,0,0);
-        settingsButton.setLayoutParams(settingsButtonParams);
-
-        RelativeLayout.LayoutParams achievementButtonParams = new RelativeLayout.LayoutParams(buttonHeight, buttonHeight);
-        achievementButtonParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        achievementButtonParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        achievementButtonParams.setMargins(0, 0,0,0);
-        achievementsButton.setLayoutParams(achievementButtonParams);
-
         colorManager = ColorManager.getInstance(this);
 
         knightButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.PIECE_COLOR), PorterDuff.Mode.MULTIPLY);
         mainLayout.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BACKGROUND_COLOR));
-        settingsButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
-        settingsButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.TEXT_COLOR),PorterDuff.Mode.MULTIPLY);
-        achievementsButton.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BOARD_COLOR_1));
-        achievementsButton.getDrawable().setColorFilter(colorManager.getColorFromFile(ColorManager.TEXT_COLOR),PorterDuff.Mode.MULTIPLY);
 
         knightButton.bringToFront();
 
@@ -267,12 +230,24 @@ public class MainActivity extends AppCompatActivity {
             window.setStatusBarColor(colorManager.getColorFromFile(ColorManager.BAR_COLOR));
         }
     }
-    public void mainPlayButtonClicked(View view){
-        if(buttonsClickable) {
+    public void singleplayerButtonClicked(View view){
+        if (buttonsClickable) {
+            buttonsClickable = false;
+            if(SingleGame.getInstance().isKnightsOnly()) {
+                SingleGame.getInstance().newGame();
+                SingleGame.getInstance().setKnightsOnly(false);
+            }
+            Intent intent = new Intent(MainActivity.this, SinglePlayerBoard.class);
+            startActivity(intent);
+        }
+    }
+    public void multiplayerButtonClicked(View view){
+        if (buttonsClickable) {
             buttonsClickable = false;
             startActivity(new Intent(MainActivity.this, PlaySelection.class));
         }
     }
+    /*
     public void aboutButtonClicked(View view){
         if (buttonsClickable) {
             buttonsClickable = false;
@@ -282,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(MainActivity.this, AboutActivity.class));
         }
     }
+     */
 
     public void issuesButtonClicked(View view)
     {

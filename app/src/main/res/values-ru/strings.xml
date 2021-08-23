@@ -90,7 +90,7 @@
     <string name="export_file">Экспортировать из Файла</string>
     <string name="bloodthirst">Решительность</string>
     <string name="bloodthirst_notification">Решительность появится в новой игре</string>
-    <string name="solo">Одиночная</string>
+    <string name="singleplayer">Одиночная</string>
     <string name="versus">Против</string>
     <string name="settings">Настройки</string>
     <string name="colors_saved">Цвета сохранены</string>
@@ -100,7 +100,7 @@
     <string name="wait_for_move">Дождись окончания хода</string>
     <string name="bloodthirst_toggle_cancelled">Решительность выключена</string>
     <string name="issues">Вопросы</string>
-    <string name="issues_url">https://github.com/CorruptedArk/open-chaos-chess/issues</string>
+    <string name="issues_url">https://github.com/Vulldozer/chaos-chess-arcade</string>
     <string name="aggressive_computer">Агрессивный компьютер</string>
     <string name="setting_applied_on_new_game">Настройки применятся к новой игре</string>
     <string name="plus_one">+1</string>
@@ -109,7 +109,9 @@
     <string name="multiplayer_guide">Нужно произвести сопряжение с устройством оппонента до начала подключения.</string>
     <string name="queensAttack">Атака ферзей</string>
     <string name="smartComputer">Умный компьютер</string>
-    <string name="move_second">Move second (Solo)</string>
+    <string name="move_second">Move second (singleplayer)</string>
     <string name="main_play">Play</string>
     <string name="title_activity_play_selection">Title</string>
+    <string name="multiplayer">Multiplayer</string>
+    <string name="achievements">Achievements</string>
 </resources>

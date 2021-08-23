@@ -30,22 +30,22 @@
     tools:context="dev.corruptedark.openchaoschess.MainActivity">
 
     <ImageView
-        android:id="@+id/main_play_button"
+        android:id="@+id/singleplayer_button"
         android:layout_width="200dp"
         android:layout_height="70dp"
         android:layout_marginTop="140dp"
         android:layout_marginBottom="15dp"
         android:adjustViewBounds="true"
-        android:onClick="mainPlayButtonClicked"
+        android:onClick="singleplayerButtonClicked"
         android:scaleType="centerCrop"
         android:text="@string/main_play"
         app:srcCompat="@drawable/ic_chaotic_button" />
 
     <TextView
-        android:id="@+id/mainPlayText"
+        android:id="@+id/singleplayerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/main_play_button"
+        android:layout_alignBottom="@id/singleplayer_button"
         android:layout_marginLeft="50dp"
         android:fontFamily="@font/unlock"
         android:paddingBottom="10dp"
@@ -53,23 +53,23 @@
         android:textSize="48sp" />
 
     <ImageView
-        android:id="@+id/about_button"
+        android:id="@+id/multiplayer_button"
         android:layout_width="200dp"
         android:layout_height="70dp"
-        android:layout_below="@+id/main_play_button"
+        android:layout_below="@+id/singleplayer_button"
         android:layout_marginBottom="-155dp"
         android:adjustViewBounds="true"
-        android:onClick="aboutButtonClicked"
+        android:onClick="multiplayerButtonClicked"
         android:scaleType="centerCrop"
         android:text="@string/about"
         android:textSize="25sp"
         app:srcCompat="@drawable/ic_chaotic_button" />
 
     <TextView
-        android:id="@+id/aboutText"
+        android:id="@+id/multiplayerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/about_button"
+        android:layout_alignBottom="@id/multiplayer_button"
         android:fontFamily="@font/unlock"
         android:paddingBottom="10dp"
         android:layout_marginLeft="30dp"
@@ -77,10 +77,10 @@
         android:textSize="48sp" />
 
     <ImageView
-        android:id="@+id/issues_button"
+        android:id="@+id/achievements_button"
         android:layout_width="200dp"
         android:layout_height="70dp"
-        android:layout_below="@id/about_button"
+        android:layout_below="@id/multiplayer_button"
         android:layout_marginStart="220dp"
         android:layout_marginLeft="220dp"
         android:layout_marginBottom="15dp"
@@ -93,10 +93,10 @@
         tools:layout_marginTop="0dp" />
 
     <TextView
-        android:id="@+id/issuesText"
+        android:id="@+id/achievementsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/issues_button"
+        android:layout_alignBottom="@id/achievements_button"
         android:layout_marginStart="240dp"
         android:layout_marginLeft="240dp"
         android:fontFamily="@font/unlock"
@@ -105,10 +105,10 @@
         android:textSize="48sp" />
 
     <ImageView
-        android:id="@+id/quit_button"
+        android:id="@+id/settings_button"
         android:layout_width="200dp"
         android:layout_height="70dp"
-        android:layout_below="@id/issues_button"
+        android:layout_below="@id/achievements_button"
         android:layout_marginStart="220dp"
         android:layout_marginLeft="220dp"
         android:layout_marginTop="0dp"
@@ -125,35 +125,13 @@
         android:id="@+id/quitText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/quit_button"
+        android:layout_alignBottom="@id/settings_button"
         android:layout_marginStart="270dp"
         android:layout_marginLeft="270dp"
         android:fontFamily="@font/unlock"
         android:paddingBottom="10dp"
         android:text="@string/quit"
         android:textSize="48sp" />
-
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/ic_medal"
-        android:id="@+id/achievements_button"
-        android:scaleType="fitCenter"
-        android:background="@color/colorAccent"
-        android:layout_alignParentRight="true"
-        android:onClick="achievementsClicked"
-        android:layout_alignParentBottom="true" />
-
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/ic_settings"
-        android:id="@+id/settings_button"
-        android:scaleType="fitCenter"
-        android:background="@color/colorAccent"
-        android:layout_alignParentLeft="true"
-        android:onClick="settingsButtonClicked"
-        android:layout_alignParentBottom="true" />
 
     <ImageButton
         android:layout_width="wrap_content"

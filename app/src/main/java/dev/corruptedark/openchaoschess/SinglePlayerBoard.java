@@ -321,7 +321,7 @@ public class SinglePlayerBoard extends AppCompatActivity {
         plusOneLabel.setGravity(Gravity.CENTER);
 
         boardLayout.setBackgroundColor(colorManager.getColorFromFile(ColorManager.BACKGROUND_COLOR));
-        toolbar.setTitle(R.string.solo);
+        toolbar.setTitle(R.string.singleplayer);
         toolbar.setBackgroundColor(colorManager.getColorFromFile(ColorManager.SECONDARY_COLOR));
         toolbar.setTitleTextColor(colorManager.getColorFromFile(ColorManager.TEXT_COLOR));
         toolbar.getNavigationIcon().setColorFilter(colorManager.getColorFromFile(ColorManager.TEXT_COLOR), PorterDuff.Mode.MULTIPLY);

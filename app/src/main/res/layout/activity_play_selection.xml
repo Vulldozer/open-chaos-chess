@@ -15,33 +15,18 @@
         android:paddingTop="@dimen/activity_vertical_margin" >
 
         <Button
-            android:id="@+id/play_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
-            android:background="@color/colorAccent"
-            android:gravity="center"
-            android:onClick="playButtonClicked"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="@string/play"
-            android:textSize="25sp"
-            android:layout_centerHorizontal="true"/>
-
-        <Button
             android:id="@+id/host_game_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/play_button"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="70dp"
             android:background="@color/colorAccent"
             android:onClick="hostGameButtonClicked"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="@string/host_game"
-            android:textSize="25sp"
-            android:layout_marginTop="30dp"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="25sp" />
 
         <Button
             android:id="@+id/join_game_button2"

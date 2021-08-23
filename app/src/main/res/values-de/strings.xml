@@ -91,7 +91,7 @@
     <string name="export_file">Export to File</string>
     <string name="bloodthirst">"Blutdurst  "</string>
     <string name="bloodthirst_notification">Blutdurst-Modus greift ab dem nächsten Spiel</string>
-    <string name="solo">Allein</string>
+    <string name="singleplayer">Allein</string>
     <string name="versus">Gegen</string>
     <string name="settings">Settings</string>
     <string name="colors_saved">Colors saved</string>
@@ -101,7 +101,7 @@
     <string name="wait_for_move">Wait until the move has finished</string>
     <string name="bloodthirst_toggle_cancelled">Bloodthirst toggle cancelled</string>
     <string name="issues">Issues</string>
-    <string name="issues_url">https://github.com/CorruptedArk/open-chaos-chess/issues</string>
+    <string name="issues_url">https://github.com/Vulldozer/chaos-chess-arcade</string>
     <string name="aggressive_computer">Aggressive computer</string>
     <string name="setting_applied_on_new_game">Setting will be applied on new game</string>
     <string name="plus_one">+1</string>
@@ -112,5 +112,7 @@
     <string name="move_second">Move second (Solo)</string>
     <string name="main_play">Play</string>
     <string name="title_activity_play_selection">Title</string>
+    <string name="multiplayer">Multiplayer</string>
+    <string name="achievements">Achievements</string>
 </resources>
 
