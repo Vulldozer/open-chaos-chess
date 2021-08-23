@@ -60,6 +60,12 @@ public class Mover {
         final Square animatedSquare = singleGame.getAnimatedSquare();
         final MediaPlayer mpPlace = MediaPlayer.create(context, R.raw.movepiece1);
         activePlayers.add(mpPlace);
+        mpPlace.setOnCompletionListener(new MediaPlayer.OnCompletionListener() { // Clean up media player after it finished.
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.release();
+            }
+        });
         final int team = start.getTeam();
         final String piece = start.getPiece();
         final int pieceCount = start.getPieceCount() + 1;
@@ -86,6 +92,7 @@ public class Mover {
             @Override
             public void onAnimationEnd(Animation animation) {
                 mpPlace.start();
+
                 end.setTeam(team);
                 end.setPiece(piece);
                 end.setPieceCount(pieceCount);
