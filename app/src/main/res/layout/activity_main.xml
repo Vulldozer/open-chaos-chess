@@ -32,10 +32,10 @@
     <ImageView
         android:id="@+id/chaos"
         android:layout_width="400dp"
-        android:layout_height="400dp"
+        android:layout_height="250dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="-40dp"
-        android:layout_marginBottom="-70dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
         android:gravity="center"
         app:srcCompat="@drawable/chaos"
         tools:layout_centerHorizontal="true" />
@@ -47,12 +47,14 @@
         android:layout_below="@+id/chaos"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="0dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="0dp"
         android:adjustViewBounds="true"
         android:onClick="singleplayerButtonClicked"
         android:scaleType="fitXY"
         android:text="@string/main_play"
-        app:srcCompat="@drawable/ic_chaotic_button" />
+        app:srcCompat="@drawable/ic_chaotic_button"
+         />
+
 
     <TextView
         android:id="@+id/singleplayerText"
@@ -60,10 +62,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/singleplayer_button"
         android:layout_centerHorizontal="true"
-        android:fontFamily="@font/unlock"
-        android:paddingBottom="15dp"
+        android:fontFamily="@font/bungee"
         android:text="@string/singleplayer"
-        android:textSize="36sp" />
+        android:textSize="28sp" />
 
     <ImageView
         android:id="@+id/multiplayer_button"
@@ -71,7 +72,7 @@
         android:layout_height="70dp"
         android:layout_below="@+id/singleplayer_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="2dp"
         android:adjustViewBounds="true"
         android:onClick="multiplayerButtonClicked"
         android:scaleType="fitXY"
@@ -85,10 +86,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/multiplayer_button"
         android:layout_centerHorizontal="true"
-        android:fontFamily="@font/unlock"
-        android:paddingBottom="15dp"
+        android:fontFamily="@font/bungee"
         android:text="@string/multiplayer"
-        android:textSize="36sp" />
+        android:textSize="28sp" />
 
     <ImageView
         android:id="@+id/achievements_button"
@@ -96,15 +96,14 @@
         android:layout_height="70dp"
         android:layout_below="@+id/multiplayer_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="2dp"
         android:adjustViewBounds="true"
         android:onClick="achievementsClicked"
         android:scaleType="fitXY"
         android:text="@string/issues"
         android:textSize="25sp"
-        app:srcCompat="@drawable/ic_chaotic_button"
 
-        />
+        app:srcCompat="@drawable/ic_chaotic_button" />
 
     <TextView
         android:id="@+id/achievementsText"
@@ -112,10 +111,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/achievements_button"
         android:layout_centerHorizontal="true"
-        android:fontFamily="@font/unlock"
-        android:paddingBottom="15dp"
+        android:fontFamily="@font/bungee"
         android:text="@string/achievements"
-        android:textSize="32sp" />
+        android:textSize="28sp" />
 
     <ImageView
         android:id="@+id/settings_button"
@@ -123,6 +121,7 @@
         android:layout_height="70dp"
         android:layout_below="@+id/achievements_button"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="15dp"
         android:adjustViewBounds="true"
         android:onClick="settingsButtonClicked"
@@ -138,10 +137,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/settings_button"
         android:layout_centerHorizontal="true"
-        android:fontFamily="@font/unlock"
-        android:paddingBottom="15dp"
+        android:fontFamily="@font/bungee"
         android:text="@string/settings"
-        android:textSize="36sp" />
+        android:textSize="28sp" />
 
     <ImageButton
         android:layout_width="wrap_content"

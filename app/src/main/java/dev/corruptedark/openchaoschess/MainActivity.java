@@ -28,6 +28,7 @@ import android.os.Handler;
 import android.os.Bundle;
 import android.os.Looper;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
@@ -46,9 +47,18 @@ public class MainActivity extends AppCompatActivity {
     final int SELECT_PLAYERS = 420;
     final int KNIGHT_TIME = 10000;
     volatile boolean buttonsClickable = true;
+    /*final Handler animationHandler = new Handler(); // is a handler that runs the animation func every "animationDelay" amount of milliseconds
+    final int animationDelay = 700; // 1s = 1000ms
+    int rotation = 30; // rotation degree for animations
+    Runnable animationRunnable;
+    public Handler getAnimationHandler() {
+        return animationHandler;
+    }
+    */
 
     RelativeLayout mainLayout;
     ImageView singleplayerButton;
+    ImageView pawnAnim;
     ImageView multiplayerButton;
     ImageView achievementsButton;
     ImageView settingsButton;
@@ -104,8 +114,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
-
         Display display;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             display = getDisplay();
@@ -166,8 +174,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        /*
+        animationHandler.postDelayed(animationRunnable = new Runnable() {
+            public void run() {
+                if(rotation == 30) {
+                    rotation = 330;
+                    pawnAnim.setRotation(rotation);
+                }
+                else if(rotation == 330) {
+                    rotation = 30;
+                    pawnAnim.setRotation(rotation);
+                }
+                animationHandler.postDelayed(animationRunnable, animationDelay);
+            }
+        }, animationDelay);
+*/
         super.onResume();
-
         Display display;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
             display = getDisplay();
@@ -230,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
             window.setStatusBarColor(colorManager.getColorFromFile(ColorManager.BAR_COLOR));
         }
     }
+
     public void singleplayerButtonClicked(View view){
         if (buttonsClickable) {
             buttonsClickable = false;
@@ -241,15 +264,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
     public void multiplayerButtonClicked(View view){
         if (buttonsClickable) {
             buttonsClickable = false;
             startActivity(new Intent(MainActivity.this, PlaySelection.class));
         }
-    }
-
-    public void quitButtonClicked(View view){
-        finish();
     }
 
     public void settingsButtonClicked(View view) {
@@ -298,8 +318,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void showTurnUI()
-    {
+    protected void showTurnUI(){
         //TODO
         Intent intent = new Intent(MainActivity.this, MultiPlayerBoard.class);
         intent.putExtra("knightsOnly", false);
@@ -316,4 +335,11 @@ public class MainActivity extends AppCompatActivity {
         buttonsClickable = true;
         super.onPostResume();
     }
+    /*
+    @Override
+    protected  void onPause(){
+        animationHandler.removeCallbacks(animationRunnable); //stop handler when activity not visible
+        super.onPause();
+    }
+     */
 }
