@@ -26,7 +26,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -42,12 +41,10 @@ public class Mover {
     public final int NONE = 0;
     private static Set<MediaPlayer> activePlayers = new HashSet<MediaPlayer>();
     public final int SLEEP_DURATION = 500; // slows down computer?
-
     private enum Direction {UP, BACK, LEFT, RIGHT, LEFTUP, RIGHTUP, LEFTBACK, RIGHTBACK, _2R1U, _1R2U, _1L2U, _2L1U, _2L1D, _1L2D, _1R2D, _2R1D}
-
     private enum KQMODE {ROOK, BISHOP}
-
     Random rand = new Random();
+    private int randInt;
     Context context;
     MediaPlayer mpMove;
     private Square destination;
@@ -58,9 +55,33 @@ public class Mover {
 
     private void animateMove(final Square start, final Square end, final SingleGame singleGame) {
         final Square animatedSquare = singleGame.getAnimatedSquare();
-        final MediaPlayer mpPlace = MediaPlayer.create(context, R.raw.movepiece1);
-        activePlayers.add(mpPlace);
-        mpPlace.setOnCompletionListener(new MediaPlayer.OnCompletionListener() { // Clean up media player after it finished.
+        final MediaPlayer mpPlace1 = MediaPlayer.create(context, R.raw.movepiece1);
+        final MediaPlayer mpPlace2 = MediaPlayer.create(context, R.raw.movepiece2);
+        final MediaPlayer mpPlace3 = MediaPlayer.create(context, R.raw.movepiece3);
+        final MediaPlayer mpPlace4 = MediaPlayer.create(context, R.raw.movepiece4);
+        activePlayers.add(mpPlace1);
+        activePlayers.add(mpPlace2);
+        activePlayers.add(mpPlace3);
+        activePlayers.add(mpPlace4);
+        mpPlace1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() { // Clean up media player after it finished.
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.release();
+            }
+        });
+        mpPlace2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() { // Clean up media player after it finished.
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.release();
+            }
+        });
+        mpPlace3.setOnCompletionListener(new MediaPlayer.OnCompletionListener() { // Clean up media player after it finished.
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.release();
+            }
+        });
+        mpPlace4.setOnCompletionListener(new MediaPlayer.OnCompletionListener() { // Clean up media player after it finished.
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 mediaPlayer.release();
@@ -91,8 +112,24 @@ public class Mover {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                mpPlace.start();
-
+                randInt = rand.nextInt(4); // Play a random sound
+                switch (randInt)
+                {
+                    case 0:
+                        mpPlace1.start();
+                        break;
+                    case 1:
+                        mpPlace2.start();
+                        break;
+                    case 2:
+                        mpPlace3.start();
+                        break;
+                    case 3:
+                        mpPlace4.start();
+                        break;
+                    default:
+                        break;
+                }
                 end.setTeam(team);
                 end.setPiece(piece);
                 end.setPieceCount(pieceCount);
