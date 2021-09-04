@@ -22,6 +22,7 @@ package dev.corruptedark.openchaoschess;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -37,7 +38,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     public final int YOU = -1;
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     final int SELECT_PLAYERS = 420;
     final int KNIGHT_TIME = 10000;
     volatile boolean buttonsClickable = true;
+    MediaPlayer clickPlayer;
     /*final Handler animationHandler = new Handler(); // is a handler that runs the animation func every "animationDelay" amount of milliseconds
     final int animationDelay = 700; // 1s = 1000ms
     int rotation = 30; // rotation degree for animations
@@ -94,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         mainLayout = (RelativeLayout)findViewById(R.id.activity_main);
         colorManager = ColorManager.getInstance(this);
         knightHandler = new Handler(Looper.getMainLooper());
+        clickPlayer = MediaPlayer.create(this, R.raw.click);
         startKnight();
     }
 
@@ -256,6 +262,7 @@ public class MainActivity extends AppCompatActivity {
     public void singleplayerButtonClicked(View view){
         if (buttonsClickable) {
             buttonsClickable = false;
+            clickPlayer.start();
             if(SingleGame.getInstance().isKnightsOnly()) {
                 SingleGame.getInstance().newGame();
                 SingleGame.getInstance().setKnightsOnly(false);
@@ -268,6 +275,7 @@ public class MainActivity extends AppCompatActivity {
     public void multiplayerButtonClicked(View view){
         if (buttonsClickable) {
             buttonsClickable = false;
+            clickPlayer.start();
             startActivity(new Intent(MainActivity.this, PlaySelection.class));
         }
     }
@@ -275,6 +283,7 @@ public class MainActivity extends AppCompatActivity {
     public void settingsButtonClicked(View view) {
         if (buttonsClickable) {
             buttonsClickable = false;
+            clickPlayer.start();
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
         }
     }
@@ -282,6 +291,7 @@ public class MainActivity extends AppCompatActivity {
     public void achievementsClicked(View view){
         if (buttonsClickable) {
             buttonsClickable = false;
+            clickPlayer.start();
             startActivity(new Intent(MainActivity.this, AchievementsActivity.class));
         }
     }
@@ -290,7 +300,6 @@ public class MainActivity extends AppCompatActivity {
         if (buttonsClickable) {
             buttonsClickable = false;
             Intent intent = new Intent(MainActivity.this, SinglePlayerBoard.class);
-
             if(!SingleGame.getInstance().isKnightsOnly()) {
                 SingleGame.getInstance().newGame();
                 SingleGame.getInstance().setKnightsOnly(true);
