@@ -19,6 +19,7 @@
 
 package dev.corruptedark.openchaoschess;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -30,6 +31,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.media.MediaBrowserCompatUtils;
 
 
 public class SecretActivity extends AppCompatActivity {
@@ -60,7 +62,8 @@ public class SecretActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_secret);
-
+        final MediaPlayer secretPlayer = MediaPlayer.create(this, R.raw.secret);
+        secretPlayer.start();
         chatEdit = (EditText) findViewById(R.id.chat_edit);
         secretLine = (LinearLayout) findViewById(R.id.secret_line);
         secretScroll = (ScrollView) findViewById(R.id.secret_scroll);
